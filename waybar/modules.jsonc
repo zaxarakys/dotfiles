@@ -1,0 +1,132 @@
+{
+  "upower": {
+    "tooltip": true
+  },
+  "custom/linux": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/systemIcon.sh",
+    "interval": "once",
+    "tooltip": false,
+    "return-type": "string",
+    "on-click": "kitty -e $SHELL -c 'fastfetch; read'",
+    "escape": true
+  },
+  "hyprland/workspaces": {
+    "sort-by-number": true,
+    "disable-scroll-wraparound": true,
+    "disable-scroll": false,
+    "all-outputs": false,
+    "enable-bar-scroll": true,
+    "format": "{name}"
+  },
+  "tray": {
+    "reverse-direction": true,
+    "icon-size": 24,
+    "spacing": 10
+  },
+  "clock": {
+    "format": "{:%a %d %b %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "interval": 1
+  },
+  "memory": {
+    "interval": 10,
+    "format": " {used:0.2f} GiB"
+  },
+  "custom/media": {
+    "escape": true,
+    "format": " {icon}{text}",
+    "return-type": "json",
+    "format-icons": {
+      "Playing": " ",
+      "Paused": " "
+    },
+    "max-length": 35,
+    "exec": "playerctl metadata --format '{\"text\": \"{{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause"
+  },
+  "custom/notification": {
+    "tooltip": true,
+    "format": "<span size='16pt'>{icon}</span>",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂠",
+      "dnd-none": "󰪓",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰪑",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "privacy": {
+    "icon-spacing": 2,
+    "icon-size": 16,
+    "modules": [
+      {
+        "type": "screenshare"
+      },
+      {
+          "type": "audio-out"
+      },
+      {
+        "type": "audio-in"
+      }
+    ]
+  },
+  "network#wifi": {
+    "interface": "wl*",
+    "interval": 30,
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-linked": "",
+    "format-disconnected": "",
+    "format-disabled": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tooltip-format": "{}",
+    "tooltip-format-wifi": "{signalStrength}%"
+  },
+  "network#ethernet": {
+    "interface": "enp*",
+    "interval": 30,
+    "format-ethernet": "",
+    "format-linked": "",
+    "format-disconnected": "",
+    "format-disabled": "",
+    "on-click": "XDG_CURRENT_DESKTOP=gnome gnome-control-center network",
+    "tooltip-format": "{}",
+    "tooltip-format-ethernet": "{ipaddr}"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": " {volume}%",
+    "format-muted": " {volume}%",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  }
+}
